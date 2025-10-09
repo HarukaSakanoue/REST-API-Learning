@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.ItemService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -10,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 import com.example.demo.model.Item;
+
 import java.util.List;
 import java.util.Arrays;
+
+import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
 public class ItemController {
@@ -36,6 +39,12 @@ public class ItemController {
     @PostMapping("/items")
     public void addItem(@RequestBody Item item) {
         itemService.addItem(item);
+    }
+
+
+    @PutMapping("/items/{itemId}")
+    public void updateItem(@PathVariable("itemId") String itemId, @RequestBody Item item) {
+        itemService.updateItem(itemId, item);
     }
 
 }

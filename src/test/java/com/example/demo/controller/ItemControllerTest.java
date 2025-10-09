@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -61,5 +62,23 @@ public class ItemControllerTest {
                .andExpect(jsonPath("$.itemId", is("1006")))
                .andExpect(jsonPath("$.itemName", is("タブレット")))
                .andExpect(jsonPath("$.itemCategory", is("電子機器")));
+    }
+
+
+
+    @Test
+    public void testUpdateItem() throws Exception {       
+        String updatedItemJson = "{\"itemId\":\"1003\",\"itemName\":\"モイスチャライザー\",\"itemCategory\":\"スキンケア\"}";
+        mockMvc.perform(put("/items/1003")
+               .contentType(MediaType.APPLICATION_JSON)
+               .content(updatedItemJson))
+               .andExpect(status().isOk());
+
+        mockMvc.perform(get("/items/1003"))
+               .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(jsonPath("$.itemId", is("1003")))
+               .andExpect(jsonPath("$.itemName", is("モイスチャライザー")))
+               .andExpect(jsonPath("$.itemCategory", is("スキンケア")));
     }
 }
