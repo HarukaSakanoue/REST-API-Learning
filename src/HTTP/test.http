@@ -1,0 +1,13 @@
+POST http://localhost:8080/items
+Content-Type: application/json
+Accept: application/json
+
+{
+    "itemId": "2001",
+    "itemName": "マグカップ",
+    "category": "キッチン"
+}
+
+
+
+# $ curl -X POST -H "Content-Type: application/json" -d '{"itemId": "2001","itemName": "マグカップ","category": "キッチン"}' http://localhost:8080/items
