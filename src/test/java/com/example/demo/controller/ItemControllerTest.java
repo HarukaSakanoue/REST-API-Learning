@@ -81,4 +81,28 @@ public class ItemControllerTest {
                .andExpect(jsonPath("$.itemName", is("モイスチャライザー")))
                .andExpect(jsonPath("$.itemCategory", is("スキンケア")));
     }
+
+
+
+    @Test
+    public void testDeleteItem() throws Exception {       
+        mockMvc.perform(post("/items")
+               .contentType(MediaType.APPLICATION_JSON)
+               .content("{\"itemId\":\"1007\",\"itemName\":\"スマートウォッチ\",\"itemCategory\":\"電子機器\"}"))
+               .andExpect(status().isOk());
+
+        mockMvc.perform(get("/items/1007"))
+               .andExpect(status().isOk())
+               .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(jsonPath("$.itemId", is("1007")))
+               .andExpect(jsonPath("$.itemName", is("スマートウォッチ")))
+               .andExpect(jsonPath("$.itemCategory", is("電子機器")));
+
+        mockMvc.perform(org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete("/items/1007"))
+               .andExpect(status().isOk());
+
+        mockMvc.perform(get("/items/1007"))
+               .andExpect(status().isOk())
+               .andExpect(content().string(""));
+    }
 }

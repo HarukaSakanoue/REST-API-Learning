@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.model.Item;
 
 import java.util.List;
-import java.util.Arrays;
-
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 @RestController
@@ -47,4 +46,9 @@ public class ItemController {
         itemService.updateItem(itemId, item);
     }
 
+
+    @DeleteMapping("/items/{itemId}")
+    public void deleteItem(@PathVariable("itemId") String itemId) {
+        itemService.deleteItem(itemId);
+    }
 }
