@@ -3,52 +3,41 @@ package com.example.demo.service;
 import com.example.demo.model.Item;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.example.demo.repo.ItemRepository;
 
 @Service
 public class ItemService {
-
-    private List<Item> allItems = new ArrayList<> (Arrays.asList(
-            new Item("1001", "ネックレス", "ジュエリー"),
-            new Item("1002", "パーカー", "ファッション"),
-            new Item("1003", "フェイスクリーム", "ビューティ"),
-            new Item("1004", "サプリメント", "ヘルス"),
-            new Item("1005", "ブルーベリー", "フード")));
+    @Autowired
+    private ItemRepository itemRepository;
 
     public List<Item> getAllItems() {
+        List<Item> allItems = new ArrayList<>();
+        itemRepository.findAll().forEach(allItems::add);
+
         return allItems;
     }
 
-
-    public Item getItem(String itemId) {
-        for(int i = 0; i < allItems.size(); i++) {
-            if(allItems.get(i).getItemId().equals(itemId)) {
-                return allItems.get(i);
-            }
-        }
-        return null;
+    // use Long for id to match Item and ItemRepository
+    public Optional<Item> getItem(Long itemId) {
+        return itemRepository.findById(itemId);
     }
 
     public void addItem(Item item) {
-        allItems.add(item);
+        itemRepository.save(item);
     }
 
-
-
-    public void updateItem(String itemId, Item item) {
-        for(int i = 0; i < allItems.size(); i++) {
-            if(allItems.get(i).getItemId().equals(itemId)) {
-                allItems.set(i, item);
-            }
+    public void updateItem(Long itemId, Item item) {
+        if(itemRepository.existsById(itemId)) {
+            itemRepository.save(item);
         }
     }
 
-
-
-
-    public void deleteItem(String itemId) {
-        allItems.removeIf(item -> item.getItemId().equals(itemId));
-    }   
+    public void deleteItem(Long itemId) {
+        itemRepository.deleteById(itemId);
+    }
 }

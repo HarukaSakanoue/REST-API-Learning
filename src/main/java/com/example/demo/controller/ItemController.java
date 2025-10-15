@@ -16,6 +16,7 @@ import com.example.demo.model.Item;
 import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import com.example.demo.Exception.ItemNotFoundException;
 
 @RestController
 public class ItemController {
@@ -30,8 +31,8 @@ public class ItemController {
     }
 
     @GetMapping("/items/{itemId}")
-    public Item getItem(@PathVariable("itemId") String itemId) {
-        return itemService.getItem(itemId);
+    public Item getItem(@PathVariable("itemId") Long itemId) {
+        return itemService.getItem(itemId).orElseThrow(() -> new ItemNotFoundException(itemId));
     }
 
 
@@ -42,13 +43,13 @@ public class ItemController {
 
 
     @PutMapping("/items/{itemId}")
-    public void updateItem(@PathVariable("itemId") String itemId, @RequestBody Item item) {
+    public void updateItem(@PathVariable("itemId") Long itemId, @RequestBody Item item) {
         itemService.updateItem(itemId, item);
     }
 
 
     @DeleteMapping("/items/{itemId}")
-    public void deleteItem(@PathVariable("itemId") String itemId) {
+    public void deleteItem(@PathVariable("itemId") Long itemId) {
         itemService.deleteItem(itemId);
     }
 }
