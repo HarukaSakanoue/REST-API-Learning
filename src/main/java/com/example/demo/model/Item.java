@@ -1,28 +1,43 @@
 package com.example.demo.model;
 
+import java.lang.annotation.Inherited;
+
+import javax.annotation.processing.Generated;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity(name = "m_item")
 public class Item {
-    private String itemId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long itemId;
     private String itemName;
     private String itemCategory;
 
-    public Item() {} // ← JSONデシリアライズ用に必須
+    public Item() {
+    } // ← JSONデシリアライズ用に必須
 
-    public Item(String itemId, String itemName, String itemCategory) {
-        this.itemId = itemId;
+    public Item(String itemName, String itemCategory) {
+        // this.itemId = itemId;
         this.itemName = itemName;
         this.itemCategory = itemCategory;
     }
 
-    public String getItemId() {
+    public Long getItemId() {
         return itemId;
     }
-    public void setItemId(String itemId) {
+
+    public void setItemId(Long itemId) {
         this.itemId = itemId;
     }
 
     public String getItemName() {
         return itemName;
     }
+
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }
@@ -30,6 +45,7 @@ public class Item {
     public String getItemCategory() {
         return itemCategory;
     }
+
     public void setItemCategory(String itemCategory) {
         this.itemCategory = itemCategory;
     }
