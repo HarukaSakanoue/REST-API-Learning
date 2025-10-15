@@ -6,8 +6,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.demo.repo.ItemRepository;
 import com.example.demo.model.Item;
+import org.springframework.cache.annotation.EnableCaching;
+
 
 @SpringBootApplication
+@EnableCaching
 public class DemoApplication implements CommandLineRunner {
 
     @Autowired
