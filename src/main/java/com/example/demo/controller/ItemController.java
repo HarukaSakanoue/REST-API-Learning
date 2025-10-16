@@ -15,7 +15,6 @@ import com.example.demo.model.Item;
 
 import java.util.List;
 
-import javax.annotation.processing.Generated;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;

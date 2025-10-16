@@ -7,11 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.example.demo.repo.ItemRepository;
 import com.example.demo.model.Item;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 
 @SpringBootApplication
 @EnableCaching
-public class DemoApplication implements CommandLineRunner {
+public class DemoApplication extends SpringBootServletInitializer
+implements CommandLineRunner {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(DemoApplication.class);
+	}
+
 
     @Autowired
     private ItemRepository itemRepository;

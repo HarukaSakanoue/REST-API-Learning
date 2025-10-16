@@ -1,9 +1,5 @@
 package com.example.demo.model;
 
-import java.lang.annotation.Inherited;
-
-import javax.annotation.processing.Generated;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

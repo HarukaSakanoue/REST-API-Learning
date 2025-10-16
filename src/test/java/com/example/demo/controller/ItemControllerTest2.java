@@ -3,7 +3,6 @@ package com.example.demo.controller;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.hasSize;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,7 +24,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.beans.Transient;
 import static org.hamcrest.MatcherAssert.assertThat;   
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.CoreMatchers.*;
@@ -34,7 +32,6 @@ import com.example.demo.repo.ItemRepository;
 import com.example.demo.Exception.ItemNotFoundException;
 import com.example.demo.model.HelloMessage;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.core.type.TypeReference;
