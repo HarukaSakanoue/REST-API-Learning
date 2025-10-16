@@ -14,9 +14,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.model.Item;
 
 import java.util.List;
+
+import javax.annotation.processing.Generated;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import com.example.demo.Exception.ItemNotFoundException;
+import com.example.demo.model.HelloMessage;
+
 
 @RestController
 public class ItemController {
@@ -51,5 +56,12 @@ public class ItemController {
     @DeleteMapping("/items/{itemId}")
     public void deleteItem(@PathVariable("itemId") Long itemId) {
         itemService.deleteItem(itemId);
+    }
+
+
+
+    @GetMapping("/callHello")
+    public HelloMessage getHelloResponse() {
+        return itemService.getHelloResponse();
     }
 }

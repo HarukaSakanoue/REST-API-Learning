@@ -13,12 +13,26 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 import com.example.demo.Exception.ItemNotFoundException;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.web.client.RestTemplate;
+import com.example.demo.model.HelloMessage;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+
 
 
 @Service
 public class ItemService {
     @Autowired
     private ItemRepository itemRepository;
+
+    private RestTemplate restTemplate;
+
+    public ItemService(RestTemplateBuilder restTemplateBuilder) {
+        this.restTemplate = restTemplateBuilder.build();
+    }
 
     @Cacheable("getItems")
     public List<Item> getAllItems() {
@@ -69,5 +83,13 @@ public class ItemService {
     })
     public void deleteItem(Long itemId) {
         itemRepository.deleteById(itemId);
+    }
+
+
+    public HelloMessage getHelloResponse() {
+        String url = "http://localhost:8080/hello";
+        String hello = restTemplate.getForObject(url, String.class);
+        HelloMessage retHello = new HelloMessage(hello);
+        return retHello;
     }
 }
